@@ -1,0 +1,61 @@
+# ============================================
+# Docker Compose for AI Agent Sandbox
+# Service: agent-sandbox
+# ============================================
+
+services:
+  agent-sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ai-agent-sandbox
+
+    # Runtime user (non-root) - matches UID/GID from Dockerfile
+    user: "2000:2000"
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+    # Restart policy for resilience
+    restart: "unless-stopped"
+
+    # Networking - custom bridge with host connectivity
+    networks:
+      - agent-net
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Volumes - only workspace, NEVER config directories!
+    volumes:
+      # Workspace volume for project files (optional)
+      - ./workspace:/app/workspace:cached
+
+    # Security options - drop all capabilities, no new privileges
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    tmpfs:
+      - /tmp:size=100M,mode=1777
+
+    # Port mapping for optional web terminal
+    # Uncomment below when ENABLE_WEB_TERMINAL=true in .env:
+    # ports:
+    #   - "${WEB_TERMINAL_PORT:-7681}:7681"
+
+networks:
+  agent-net:
+    driver: bridge
+    name: ai-agent-sandbox-network
+    internal: false
