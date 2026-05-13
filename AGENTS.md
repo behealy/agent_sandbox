@@ -84,7 +84,7 @@ docker compose up -d
 
 ```
 ai-agent-sandbox/
-├── Dockerfile              # Multi-stage image build (Node.js LTS)
+├── Dockerfile              # Single-stage image build (Node.js LTS)
 ├── docker-compose.yml      # Service definition with security profiles
 ├── .env.example            # Template environment variables
 ├── entrypoint.sh           # Startup validation and agent execution
