@@ -37,7 +37,10 @@ fi
 
 # Check LLM server connectivity (optional, with timeout)
 if command -v curl > /dev/null 2>&1; then
-    if ! curl -s --max-time 5 "http://$(echo $LLM_BASE_URL | sed 's|/.*||')" > /dev/null 2>&1; then
+    # Strip protocol to get host:port, then construct a clean URL for the health check
+    SCHEME=$(echo "$LLM_BASE_URL" | sed 's|://.*||')
+    HOST_PORT=$(echo "$LLM_BASE_URL" | sed 's|.*://||' | sed 's|/.*||')
+    if ! curl -s --max-time 5 "${SCHEME}://${HOST_PORT}" > /dev/null 2>&1; then
         echo "[WARN] LLM server at ${LLM_BASE_URL} appears unreachable"
         echo "[INFO] You may need to configure OPENAI_BASE_URL correctly"
     else
