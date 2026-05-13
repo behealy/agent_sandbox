@@ -8,7 +8,7 @@ Production-ready, isolated container environment for running both [@earendil-wor
 
 | Feature | Description |
 |---------|-------------|
-| **Non-root runtime** | Container runs as `agentuser` (UID 1000), not root |
+| **Non-root runtime** | Container runs as `agentuser` (UID 2000), not root |
 | **Baked-in configs** | OpenCode & PI model configurations baked at build time, no volume mounts needed |
 | **OpenAI-compatible LLM** | Connects to local servers via REST API (Ollama, LM Studio, vLLM, etc.) |
 | **Resource limits** | CPU/memory constraints enforced via Docker Compose deploy |
@@ -187,7 +187,7 @@ docker exec ai-agent-sandbox opencode --version
 - **No privileged mode** (`--privileged` not used)
 - **Read-only root filesystem** (except `/tmp`)
 - **All capabilities dropped** (`cap_drop: ALL`)
-- **Non-root user** at runtime (`agentuser`:1000)
+- **Non-root user** at runtime (`agentuser`:2000)
 - **No-new-privileges** security option enabled
 
 ### Network Security
@@ -261,7 +261,7 @@ ipconfig | findstr "IPv4"  # Note your VirtualBox or Hyper-V IPv4 address
 
 Before considering the setup complete, verify:
 
-- [ ] **Container runs as non-root**: Check `docker exec ai-agent-sandbox id` shows UID 1000
+- [ ] **Container runs as non-root**: Check `docker exec ai-agent-sandbox id` shows UID 2000
 - [ ] **Both agents installed**: Run `pi --version` and `opencode --version` inside container
 - [ ] **Config files exist**: Verify paths `/home/agentuser/.config/opencode/opencode.json` and `/home/agentuser/.pi/agent/models.json`
 - [ ] **No config volume mounts**: Confirm docker-compose.yml only has workspace volumes, no `~/.config` or `~/.pi` mounts

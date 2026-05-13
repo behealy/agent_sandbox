@@ -4,15 +4,15 @@
 # Size Target: < 400MB
 # ============================================
 
-FROM node:20-bookworm-slim AS base
+FROM node:20-bookworm-slim
 
 LABEL description="AI Agent Sandbox for PI and OpenCode coding agents"
 
-# Install essential build dependencies (curl for health checks, gnupg for certs)
+# Install runtime dependencies: curl for LLM connectivity validation
+# (gnupg not needed — no external repos or signature verification)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
-    gnupg \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root runtime user and group (UID 2000, since 1000 is taken by 'node' in base image)
@@ -43,12 +43,14 @@ RUN chmod +x /app/entrypoint.sh
 # Install global npm packages as root (before switching to non-root user)
 # This avoids permission issues with /usr/local/lib/node_modules
 ENV NPM_CONFIG_LOGLEVEL=warn
-RUN npm install -g @earendil-works/pi-coding-agent \
-    && npm i -g opencode-ai
+# Pin versions for reproducible builds — update these before each production build
+RUN npm install -g @earendil-works/pi-coding-agent@0.74.0 \
+    && npm i -g opencode-ai@1.14.48
 
-# Clean up npm cache and build dependencies aggressively (as root)
+# Clean up npm cache and build dependencies (as root)
+# Keep curl — it's needed at runtime for LLM connectivity validation
 RUN npm cache clean --force \
-    && apt-get purge -y gnupg ca-certificates curl \
+    && apt-get purge -y ca-certificates \
     && apt-get autoremove -y \
     && rm -rf /root/.npm /root/.cache /tmp/*
 
