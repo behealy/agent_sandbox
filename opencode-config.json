@@ -8,9 +8,14 @@
         "baseURL": "http://127.0.0.1:1234/v1"
       },
       "models": {
-        "google/gemma-3n-e4b": {
-          "name": "Gemma 3n-e4b (local)"
-        }
+        "qwen3.6-35b-a3b": { "name": "Qwen 3.6 35B A3B" },
+        "qwen3.5-27b": { "name": "Qwen 3.5 27B" },
+        "omnicoder-9b": { "name": "Omnicoder 9B" },
+        "qwen/qwen3-vl-8b": { "name": "Qwen 3 VL 8B" },
+        "qwen/qwen3.5-9b": { "name": "Qwen 3.5 9B" },
+        "qwen3.5-0.8b": { "name": "Qwen 3.5 0.8B" },
+        "liquid/lfm2.5-1.2b": { "name": "LFM 2.5 1.2B" },
+        "openai/gpt-oss-20b": { "name": "GPT OSS 20B" }
       }
     }
   }
