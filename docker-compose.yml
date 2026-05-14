@@ -35,10 +35,10 @@ services:
     env_file:
       - .env
 
-    # Volumes - only workspace, NEVER config directories!
-    volumes:
-      # Workspace volume for project files (optional)
-      - ./workspace:/app/workspace:cached
+    # # Volumes - only workspace, NEVER config directories!
+    # volumes:
+    #   # Workspace volume for project files (optional)
+    #   - ./workspace:/app/workspace:cached
 
     # Security options - drop all capabilities, no new privileges
     cap_drop:

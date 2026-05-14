@@ -78,11 +78,14 @@ fi
 
 echo "[ENTRYPOINT] Dropping into interactive mode..."
 
-# Check if any agent-specific command was passed as argument
-if [ $# -gt 0 ]; then
-    echo "[INFO] Executing: $*"
-    exec "$@"
-else
+# Check if a specific agent command was passed (not just 'bash'/'sh')
+case "$*" in
+    bash|sh) ;; # treat as default interactive shell
+    *)
+        echo "[INFO] Executing: $*"
+        exec "$@"
+        ;;
+esac
     # Default to bash with all environment variables exported for agents
     export LLM_BASE_URL="${LLM_BASE_URL}"
     export LLM_API_KEY="${LLM_API_KEY}"
@@ -110,5 +113,6 @@ else
     echo "=============================================="
     echo ""
     
-    exec bash
+    # Keep shell alive even without TTY (for docker exec compatibility)
+    exec bash -c 'bash --login; tail -f /dev/null'
 fi

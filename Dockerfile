@@ -1,7 +1,6 @@
 # ============================================
 # Docker AI Agent Sandbox - Production Build
 # Base: Node.js LTS 20 (bookworm-slim)
-# Size Target: < 400MB
 # ============================================
 
 FROM node:20-bookworm-slim
@@ -11,9 +10,25 @@ LABEL description="AI Agent Sandbox for PI and OpenCode coding agents"
 # Install runtime dependencies: curl for LLM connectivity validation
 # (gnupg not needed — no external repos or signature verification)
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    git \
+    vim \
     curl \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+
+# Github CLI tool download
+RUN mkdir -p -m 755 /etc/apt/keyrings \
+	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	&& cat $out | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& apt update \
+	&& apt install gh -y
+
+# Install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Create non-root runtime user and group (UID 2000, since 1000 is taken by 'node' in base image)
 RUN groupadd -g 2000 agentgroup && \

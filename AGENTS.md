@@ -14,7 +14,6 @@ Production-ready, isolated container environment for running both [@earendil-wor
 | **Resource limits** | CPU/memory constraints enforced via Docker Compose deploy |
 | **Secure networking** | Custom bridge network with host connectivity via `host.docker.internal` |
 | **Optional web terminal** | Lightweight ttyd UI on port 7681 when enabled |
-| **Minimal image size** | <400MB target using node:20-bookworm-slim base |
 
 ---
 
@@ -286,7 +285,7 @@ ls -la /home/agentuser/.config/opencode/opencode.json
 ls -la /home/agentuser/.pi/agent/models.json
 echo ""
 echo "=== LLM Connection Test ==="
-curl -s http://host.docker.internal:11434/api/tags || echo "LLM endpoint may be unreachable"
+curl -s http://host.docker.internal:1234/api/v1/models || echo "LLM endpoint may be unreachable"
 '
 ```
 
