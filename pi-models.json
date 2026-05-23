@@ -1,11 +1,5 @@
 {
   "providers": {
-    "ollama": {
-      "baseUrl": "http://host.docker.internal:11434/v1",
-      "api": "openai-completions",
-      "apiKey": "ollama",
-      "models": []
-    },
     "lmstudio": {
       "baseUrl": "http://host.docker.internal:1234/v1",
       "api": "openai-completions",
@@ -38,6 +32,21 @@
         },
         {
           "id": "openai/gpt-oss-20b"
+        }
+      ]
+    },
+    "macstudio": {
+      "baseUrl": "http://host.docker.internal:4321/v1",
+      "api": "openai-completions",
+      "apiKey": "macstudio",
+      "models": [
+        {
+          "id": "unsloth/qwen3.6-27b-Q4_K_S",
+          "contextWindow": 131072
+        },
+        {
+          "id": "qwen/qwen3.6-35b-A3B-Q4_K_M_GGUF",
+          "contextWindow": 131072
         }
       ]
     }

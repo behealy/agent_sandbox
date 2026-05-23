@@ -17,6 +17,17 @@
         "liquid/lfm2.5-1.2b": { "name": "LFM 2.5 1.2B" },
         "openai/gpt-oss-20b": { "name": "GPT OSS 20B" }
       }
+    },
+     "macstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Mac Studio Llama.cpp",
+      "options": {
+        "baseURL": "http://host.docker.internal:4321/v1"
+      },
+      "models": {
+        "unsloth/qwen3.6-27b-Q4_K_S": { "name": "Qwen 3.6 27B" },
+        "qwen/qwen3.6-35b-A3B-Q4_K_M_GGUF": { "name": "Qwen 3.6 35B A3B" }
+      }
     }
   }
 }
