@@ -65,8 +65,8 @@ RUN npm install -g @earendil-works/pi-coding-agent@0.74.0 \
 # Clean up npm cache and build dependencies (as root)
 # Keep curl — it's needed at runtime for LLM connectivity validation
 RUN npm cache clean --force \
-    && apt-get purge -y ca-certificates \
-    && apt-get autoremove -y \
+    # && apt-get purge -y ca-certificates \
+    # && apt-get autoremove -y \
     && rm -rf /root/.npm /root/.cache /tmp/*
 
 # Switch to non-root user for all subsequent operations and runtime

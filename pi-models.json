@@ -35,7 +35,7 @@
         }
       ]
     },
-    "macstudio": {
+    "macstudio-llama.cpp": {
       "baseUrl": "http://host.docker.internal:4321/v1",
       "api": "openai-completions",
       "apiKey": "macstudio",
