@@ -10,7 +10,7 @@ Usage:
   python3 generate-model-configs.py [options]
 
 Options:
-  --server-url URL        llama-server base URL (default: http://127.0.0.1:8080)
+  --server-url URL        llama-server base URL (default: http://127.0.0.1:11434)
   --api-key KEY           API key for llama-server (default: llama)
   --pi-models-path PATH   Output path for pi-agent models.json
   --opencode-config-path  Output path for opencode opencode.json
@@ -36,8 +36,8 @@ def parse_args():
     )
     parser.add_argument(
         "--server-url",
-        default="http://127.0.0.1:8080",
-        help="llama-server base URL (default: http://127.0.0.1:8080)",
+        default="http://127.0.0.1:11434",
+        help="llama-server base URL (default: http://127.0.0.1:11434)",
     )
     parser.add_argument(
         "--api-key",
