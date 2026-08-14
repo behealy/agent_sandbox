@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILDS_DIR="$SCRIPT_DIR/builds"
 CONFIGS_DIR="$SCRIPT_DIR/model_configs"
-LLAMA_PORT=11434
+LLAMA_PORT=1143
 
 # ── Helpers ──────────────────────────────────────────────────────────────
 
