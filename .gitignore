@@ -1,3 +1,5 @@
 .env
 .think-sessions/
 .think/
+serving/models/
+serving/backends/*/builds/
